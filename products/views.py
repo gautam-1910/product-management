@@ -14,3 +14,8 @@ def dashboard(request):
         'low': Product.objects.filter(stock__lte=Product.LOW_STOCK_THRESHOLD).count(),
     }
     return render(request, 'dashboard.html', context)
+    
+@login_required
+def product_list(request):
+    products = Product.objects.select_related('category').order_by('-created_at')
+    return render(request, 'product_list.html', {'products': products})
