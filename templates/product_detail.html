@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+        {% else %}
+          <div class="text-muted">No image</div>
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <h3>{{ product.name }}</h3>
+        <p><b>SKU:</b> {{ product.sku }}</p>
+        <p><b>Category:</b> {{ product.category }}</p>
+        <p><b>Price:</b> ₹{{ product.price }}</p>
+        <p><b>Stock:</b> {{ product.stock }}
+          {% if product.is_low_stock %}<span class="badge bg-danger">Low Stock</span>{% endif %}
+        </p>
+        <p><b>Status:</b>
+          {% if product.status == 'active' %}
+            <span class="badge bg-success">Active</span>
+          {% else %}
+            <span class="badge bg-secondary">Inactive</span>
+          {% endif %}
+        </p>
+        <p><b>Description:</b> {{ product.description|default:"-" }}</p>
+        <a href="{% url 'product_list' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'product_edit' product.pk %}" class="btn btn-warning">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
