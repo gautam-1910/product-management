@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Dashboard</h3>
+<h3 class="mb-4">Dashboard</h3>
+<div class="row g-3">
+  <div class="col-6 col-md-3">
+    <div class="card text-center"><div class="card-body">
+      <div class="text-muted">Total Products</div><h2>{{ total }}</h2>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center border-success"><div class="card-body">
+      <div class="text-muted">Active Products</div><h2>{{ active }}</h2>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center border-secondary"><div class="card-body">
+      <div class="text-muted">Inactive Products</div><h2>{{ inactive }}</h2>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card text-center border-danger"><div class="card-body">
+      <div class="text-muted">Low Stock Products</div><h2>{{ low }}</h2>
+    </div></div>
+  </div>
+</div>
 {% endblock %}
