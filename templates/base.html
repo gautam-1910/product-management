@@ -14,6 +14,7 @@
     <div class="navbar-nav me-auto">
       <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
       <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+      <a class="nav-link" href="{% url 'product_add' %}">Add Product</a>
     </div>
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
@@ -23,6 +24,7 @@
 </nav>
 {% endif %}
 <div class="container pb-5">
+  {% for m in messages %}<div class="alert alert-{{ m.tags }}">{{ m }}</div>{% endfor %}
   {% block content %}{% endblock %}
 </div>
 </body>

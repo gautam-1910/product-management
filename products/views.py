@@ -2,9 +2,11 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Category,Product
 from django.core.paginator import Paginator
+from .forms import ProductForm
+from django.contrib import messages
 
 @login_required
 def dashboard(request):
@@ -44,3 +46,13 @@ def product_list(request):
         'selected_status': status,
         'query_string': params.urlencode(),
     })
+
+@login_required
+def product_form(request, pk=None):
+    product = get_object_or_404(Product, pk=pk) if pk else None
+    form = ProductForm(request.POST or None, request.FILES or None, instance=product)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        messages.success(request, 'Product saved successfully.')
+        return redirect('product_list')
+    return render(request, 'product_form.html', {'form': form, 'product': product})
